@@ -18,8 +18,6 @@ const authToken = require('./middleware/authToken')
 const Order = require("./models/order");
 const helmet = require('helmet');
 
-
-
 dotenv.config();
 app.use(helmet());
 
