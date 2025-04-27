@@ -1,0 +1,38 @@
+.input-field {
+    border: 1px solid #c9c9c9;
+    padding: 10px;
+    border-radius: 4px;
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
+input[name="address"]{
+    padding-left: 35px ;
+}
+.input-field:focus {
+    border: 1px solid #119146;
+}
+
+.input-error {
+    border: 1px solid red !important;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+button[type="submit"]{
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 4px;
+    background-color: #119146;
+    font-size: 15px;
+}
+
+@media screen and (max-width : 576px){
+   label {
+    font-size: 14px;
+   }
+}

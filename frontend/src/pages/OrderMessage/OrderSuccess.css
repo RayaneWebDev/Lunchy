@@ -1,0 +1,93 @@
+/* Conteneur principal */
+.animation-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    overflow: hidden; /* Évite les dépassements */
+  }
+  
+  /* Points dispersés */
+  .orange-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #119146; /* Couleur orange */
+    border-radius: 50%; /* Rend les points ronds */
+    opacity: 0.8;
+    animation: float 5s infinite ease-in-out;
+  }
+  
+  /* Positionnement aléatoire */
+  .orange-dot:nth-child(1) {
+    top: 10%;
+    left: 20%;
+  }
+  .orange-dot:nth-child(2) {
+    top: 15%;
+    left: 80%;
+  }
+  .orange-dot:nth-child(3) {
+    top: 50%;
+    left: 10%;
+  }
+  .orange-dot:nth-child(4) {
+    top: 30%;
+    left: 50%;
+  }
+  .orange-dot:nth-child(5) {
+    top: 70%;
+    left: 90%;
+  }
+  .orange-dot:nth-child(6) {
+    top: 85%;
+    left: 60%;
+  }
+  .orange-dot:nth-child(7) {
+    top: 75%;
+    left: 20%;
+  }
+  .orange-dot:nth-child(8) {
+    top: 40%;
+    left: 80%;
+  }
+  .orange-dot:nth-child(9) {
+    top: 60%;
+    left: 30%;
+  }
+  .orange-dot:nth-child(10) {
+    top: 90%;
+    left: 10%;
+  }
+  
+  /* Animation pour les points */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Cercle central */
+  .circle {
+    position: relative;
+    background: linear-gradient(135deg, #119146, #1fde48);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
+  /* Checkmark (✓) */
+  .checkmark {
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+  }
+  

@@ -1,0 +1,22 @@
+.footer-content {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    gap: 18px;
+}
+
+.footer-content-right li, .footer-content-center li, .footer-content-left li {
+    list-style: none;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 500px) {
+    .footer-content {
+        display: grid;
+        grid-template-columns: none; 
+        grid-template-rows: auto ;
+        gap: 100px;
+    }
+}
