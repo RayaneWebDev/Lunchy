@@ -31,7 +31,7 @@ const createOrder = async (req, res) => {
       paymentStatus: "impayé",
     });
 
-    let eventId = null;
+    let eventName;
     let paymentStatus = "payé";
 
     if (isEntreprise) {
@@ -78,7 +78,7 @@ const createOrder = async (req, res) => {
       items,
       totalPrice,
       paymentStatus,
-      event: eventName,
+      event: eventName || "",
       orderNumber
     });
 

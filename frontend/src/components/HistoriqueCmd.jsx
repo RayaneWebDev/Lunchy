@@ -190,8 +190,9 @@ const HistoriqueCmd = () => {
                     Modifier
                   </button>
                   <button
-                    className="btn btn-sm bg-red-500 text-white"
+                    className="btn btn-sm bg-red-500 text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
                     onClick={() => handleCancelOrder(order._id)}
+                    disabled={new Date(order.dateLivraison) <= new Date()}
                   >
                     Annuler
                   </button>
@@ -234,8 +235,9 @@ const HistoriqueCmd = () => {
                       </td>
                       <td>
                         <button
-                          className="btn btn-sm bg-red-500 text-white hover:opacity-65"
+                          className="btn btn-sm bg-red-500 text-white hover:opacity-65 disabled:bg-gray-400 disabled:cursor-not-allowed"
                           onClick={() => handleCancelOrder(order._id)}
+                          disabled={new Date(order.dateLivraison) <= new Date()}
                         >
                           Annuler
                         </button>

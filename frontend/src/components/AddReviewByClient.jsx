@@ -71,7 +71,7 @@ const AddReviewByClient = ({ onClose, fetchReviews }) => {
           <input
             type="text"
             name="poste"
-            placeholder="Poste ex: Directeur RH"
+            placeholder="Poste ex: Directeur RH (facultatif)"
             className={`text-[14px] border p-2 rounded w-full ${
               formik.touched.poste && formik.errors.poste ? "border-red-500" : "border-gray-300"
             }`}

@@ -44,7 +44,7 @@ async function userSignInController(req,res) {
                 httpOnly: true,  // Empêche l'accès au cookie via JavaScript
                 secure: process.env.NODE_ENV === 'production',  // Assure la sécurité en production (HTTPS uniquement)
                 sameSite: 'Strict',  // Empêche l'envoi du cookie dans les requêtes inter-domaines
-                maxAge: 60*60*60 // Durée de vie du cookie en ms (60h dans cet exemple)
+                maxAge: 60*60*60*10 // Durée de vie du cookie en ms (60h dans cet exemple)
             };
 
             res.cookie("token",token,tokenOptions).status(200).json({
