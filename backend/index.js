@@ -32,12 +32,14 @@ app.use(
       ttl: 60 * 60, // 1 heure
     }),
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 3600000, // 1 heure
-      httpOnly: true,
+      secure: true,         // HTTPS obligatoire pour cross-site
+      httpOnly: true,       // pour sécurité
+      sameSite: 'none',     // permet le cross-site
+      maxAge: 3600000,      // 1 heure
     },
   })
 );
+
 
 // webhook pour ecouter les evenements de paiement stripe
 app.post(
