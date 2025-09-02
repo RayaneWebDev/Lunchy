@@ -28,7 +28,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI,
+      mongoUrl: process.env.MONGO_URI,
       ttl: 60 * 60, // 1 heure
     }),
     cookie: {
@@ -103,7 +103,7 @@ app.post(
         const total = session.amount_total;
         
       
-        const store = MongoStore.create({ mongoUrl: process.env.MONGODB_URI });
+        const store = MongoStore.create({ mongoUrl: process.env.MONGO_URI });
       
         store.get(sessionId, async (err, sessionData) => {
           if (err || !sessionData?.cart) {
