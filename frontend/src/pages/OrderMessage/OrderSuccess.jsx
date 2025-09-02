@@ -57,7 +57,7 @@ const OrderSuccess = () => {
                  <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
              </div>
 
-             <button className="btn max-w-[300px] mx-auto bg-primary text-white rounded-lg" onClick={()=>navigate('/')}>Retour à l'acceuil</button>             
+             <button className="btn max-w-[300px] mx-auto bg-primary text-white rounded-lg" onClick={()=>navigate('/')}>Retour à l'accueil</button>             
          </div>
         
    </div>
