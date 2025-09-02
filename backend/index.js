@@ -32,13 +32,14 @@ app.use(
       ttl: 60 * 60, // 1 heure
     }),
     cookie: {
-      secure: true,         // HTTPS obligatoire pour cross-site
-      httpOnly: true,       // pour sécurité
-      sameSite: 'none',     // permet le cross-site
-      maxAge: 3600000,      // 1 heure
+      secure: true,          // obligatoire sur HTTPS
+      httpOnly: true,        // empêche JS d’accéder au cookie
+      sameSite: 'none',      // ← clé pour cross-origin
+      maxAge: 3600000,       // 1 heure
     },
   })
 );
+
 
 
 // webhook pour ecouter les evenements de paiement stripe
