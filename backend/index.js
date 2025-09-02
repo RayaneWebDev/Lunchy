@@ -186,18 +186,17 @@ app.get("/api/check-admin", authToken, (req, res) => {
 
 
 
-const PORT = 8002 || process.env.PORT
+const PORT = process.env.PORT || 8002
 
-connectDB().then( ()=>{
-    app.listen(PORT, ()=>{
-        console.log("Server is running...");
-        console.log('DB connected');
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}...`);
+    console.log('DB connected');
+  });
+}).catch((err) => {
+  console.log(err);
+});
 
-    })
-}).catch((err)=>{
-    console.log(err);
-    
-})
 
 
 
