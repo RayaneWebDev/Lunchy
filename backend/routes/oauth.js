@@ -38,9 +38,12 @@ router.post('/login', async (req, res) => {
 
         // Définir les options du cookie
         const tokenOption = {
-            httpOnly: true, // Pas accessible via JavaScript côté client
-            secure: true
+            httpOnly: true,       // cookie inaccessible côté JS
+            secure: process.env.NODE_ENV === "production", // true uniquement en prod HTTPS
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // nécessaire pour cross-origin
+            maxAge: 24 * 60 * 60 * 1000, // 24h
         };
+
 
         // Définir le cookie avec le token JWT
         res.cookie('token', token, tokenOption).status(200).json({
