@@ -18,7 +18,7 @@ const MenuHero = ({ restaurant }) => {
           </>
         ) : (
           <>
-            <img src={restaurant.heroImage} className='homeImage z-0 w-full h-auto' alt='hero Image' />
+            <img src={restaurant.heroImage} className='homeImage z-0 w-full h-auto' alt='hero Image'  loading='lazy' onLoad={(e) => e.target.classList.remove('blur-xl') }/>
             <div className='homeContent flex flex-col text-center gap-3 w-full z-20'>
               <h1 className='font-Marcellus font-extralight text-[29px] px-7 md:px-14 text-primary'>
                 {_.capitalize(restaurant.name)}
@@ -52,7 +52,8 @@ const MenuHero = ({ restaurant }) => {
               </h4>
             </div>
             <div className='w-1/2'>
-              <img src={restaurant.heroImage} className='homeImage h-auto' alt='hero Image' />
+              <img src={restaurant.heroImage} className='homeImage h-auto' alt='hero Image'  loading='lazy'
+  onLoad={(e) => e.target.classList.remove('blur-xl')} />
             </div>
           </>
         )}
