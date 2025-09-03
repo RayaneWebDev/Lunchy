@@ -40,12 +40,13 @@ async function userSignInController(req,res) {
                 process.env.TOKEN_SECRET_KEY , { expiresIn : 60 *60 *60*60 }
             )
 
-            const tokenOptions = {
-                httpOnly: true,  // Empêche l'accès au cookie via JavaScript
-                secure: process.env.NODE_ENV === 'production',  // Assure la sécurité en production (HTTPS uniquement)
-                sameSite: 'Strict',  // Empêche l'envoi du cookie dans les requêtes inter-domaines
-                maxAge: 60*60*60*10 // Durée de vie du cookie en ms (60h dans cet exemple)
-            };
+           const tokenOptions = {
+            httpOnly: true,  
+            secure: process.env.NODE_ENV === 'production',  // HTTPS uniquement en prod
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',  // ❌ important
+            maxAge: 60*60*60*1000  // 1 heure par ex.
+        };
+
 
             res.cookie("token",token,tokenOptions).status(200).json({
                 message : "Connexion avec succès",
