@@ -29,6 +29,7 @@ const createOrder = async (req, res) => {
     const unpaidOrdersCount = await Order.countDocuments({
       user: userId,
       paymentStatus: "impayé",
+      status : "confirmé"
     });
 
     let eventName;
