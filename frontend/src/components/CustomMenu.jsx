@@ -95,7 +95,7 @@ const CustomMenu = ({ onClose, menu, restaurantId ,handleOpenMainProduct, custom
       try {
         const response = await fetch(SummaryApi.addToCart.url, {
           method: SummaryApi.addToCart.method,
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json"  },
           body: JSON.stringify(cartItem),
           credentials: "include",
         });

@@ -187,6 +187,9 @@ app.get("/api/check-admin", authToken, (req, res) => {
   return res.json({ isAdmin: false });
 });
 
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve("dist", "index.html")); 
+});
 
 
 const PORT = process.env.PORT || 8002

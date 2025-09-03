@@ -26,6 +26,9 @@ const App = () => {
     try {
       const dataResponse = await fetch(SummaryApi.current_user.url, {
         method: SummaryApi.current_user.method,
+        headers: {
+        'Content-Type': 'application/json',
+      },
         credentials: "include"
       });
   
