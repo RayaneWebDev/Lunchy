@@ -1,4 +1,4 @@
-import express from "express";
+const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
 const connectDB = require('./config/db')
@@ -188,13 +188,6 @@ app.get("/api/check-admin", authToken, (req, res) => {
 });
 
 
-const __dirname = path.resolve();
-
-app.use(express.static(path.join(__dirname, "dist"))); 
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
 
 
 const PORT = process.env.PORT || 8002
