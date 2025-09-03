@@ -1,6 +1,5 @@
 import React from 'react'
 import _ from 'lodash'
-
 const MenuHero = ({ restaurant }) => {
   const isLoading = !restaurant || Object.keys(restaurant).length === 0
   
@@ -18,13 +17,13 @@ const MenuHero = ({ restaurant }) => {
           </>
         ) : (
           <>
-            <img src={restaurant.heroImage} className='homeImage z-0 w-full h-auto' alt='hero Image'  loading='lazy' onLoad={(e) => e.target.classList.remove('blur-xl') }/>
+            <img src='/assets/baguette-sandwich-with-salami-cheese.jpg' className='homeImage z-0 w-full h-auto' alt='hero Image'  loading='lazy' onLoad={(e) => e.target.classList.remove('blur-xl') }/>
             <div className='homeContent flex flex-col text-center gap-3 w-full z-20'>
               <h1 className='font-Marcellus font-extralight text-[29px] px-7 md:px-14 text-primary'>
-                {_.capitalize(restaurant.name)}
+                Subway
               </h1>
               <h4 className='font-Pacifico px-9 my-5 md:px-20 text-[14px] md:text-[18px] leading-[30px] md:leading-[30px]'>
-                {restaurant.description}
+                Chez Subway, créez votre sandwich unique avec des pains frais, des protéines savoureuses, des légumes croquants et des sauces gourmandes, pour une expérience sur mesure à chaque bouchée !
               </h4>
             </div>
           </>
@@ -45,14 +44,14 @@ const MenuHero = ({ restaurant }) => {
           <>
             <div className='homeContent flex flex-col text-start gap-11 w-1/2'>
               <h1 className='font-Marcellus font-extralight text-[42px] text-primary'>
-                {_.capitalize(restaurant.name)}
+                Subway
               </h1>
               <h4 className='font-Pacifico text-[18px] leading-[50px]'>
-                {restaurant.description}
+                Chez Subway, créez votre sandwich unique avec des pains frais, des protéines savoureuses, des légumes croquants et des sauces gourmandes, pour une expérience sur mesure à chaque bouchée !
               </h4>
             </div>
             <div className='w-1/2'>
-              <img src={restaurant.heroImage} className='homeImage h-auto' alt='hero Image'  loading='lazy'
+              <img src='/assets/baguette-sandwich-with-salami-cheese.jpg' className='homeImage h-auto' alt='hero Image'  loading='lazy'
   onLoad={(e) => e.target.classList.remove('blur-xl')} />
             </div>
           </>
