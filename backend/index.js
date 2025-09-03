@@ -187,8 +187,13 @@ app.get("/api/check-admin", authToken, (req, res) => {
   return res.json({ isAdmin: false });
 });
 
+
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, "dist"))); 
+
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve("dist", "index.html")); 
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 
