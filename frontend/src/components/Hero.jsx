@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import heroImgMobile from '../assets/heroImage2.svg';
 import heroImgDesktop from '../assets/heroImageDesktop.svg';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 
@@ -21,7 +20,7 @@ const Hero = () => {
 
         {/* Image mobile */}
         <img
-          src={heroImgMobile}
+          src='/assets/heroImage2.svg'
           className={`z-0 w-full h-auto ${isLoading ? 'hidden' : ''}`}
           alt="hero Image"
           onLoad={() => setIsLoading(false)}
