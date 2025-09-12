@@ -20,7 +20,7 @@ const Hero = () => {
 
         {/* Image mobile */}
         <img
-          src='/assets/heroImage2.svg'
+          src='/assets/heroImage3.svg'
           className={`z-0 w-full h-auto ${isLoading ? 'hidden' : ''}`}
           alt="hero Image"
           onLoad={() => setIsLoading(false)}
