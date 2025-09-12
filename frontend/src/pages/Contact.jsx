@@ -189,7 +189,7 @@ const Contact = () => {
         </div>
         <div className="flex items-center gap-2">
           <img src={phoneIcon} />
-          <p>+33 760 13 59 96</p>
+          <p>+33 773 25 10 72</p>
         </div>
         <div className="flex items-center gap-2">
           <img src={addressIcon} />
