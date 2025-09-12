@@ -301,7 +301,7 @@ const createCompanyStripeSession = async (req, res) => {
         type: "bulk_unpaid_orders"
       },
       client_reference_id: userId.toString(),
-      success_url: `${process.env.FRONTEND_URL}/order-success`,
+      success_url: `${process.env.FRONTEND_URL}/`,
       cancel_url: `${process.env.FRONTEND_URL}/order-failed`,
     });
 
