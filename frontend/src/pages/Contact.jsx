@@ -233,13 +233,9 @@ const Contact = () => {
       <div className="collapse collapse-arrow bg-base-100 border border-[#F3F3F3] shadow-[0px_2px_4px_1px_rgba(0,0,0,0.25)]">
         <input type="radio" name="my-accordion-2" />
         <div className="collapse-title font-semibold text-[14px] md:text-[16px]">Comment passer une commande sur Lunchy ?</div>
-        <div className="collapse-content text-sm"> Pour commander, créez un compte et connectez-vous, sélectionnez un restaurant, personnalisez vos menus et validez votre commande. La commande doit être d’un minimum supérieur au devis.</div>
+        <div className="collapse-content text-sm"> Pour commander, créez un compte et connectez-vous, personnalisez vos menus et validez votre commande. La commande doit être d’un minimum supérieur au devis.</div>
       </div>
-      <div className="collapse collapse-arrow bg-base-100 border border-[#F3F3F3] shadow-[0px_2px_4px_1px_rgba(0,0,0,0.25)]">
-        <input type="radio" name="my-accordion-2" />
-        <div className="collapse-title font-semibold text-[14px] md:text-[16px]">Quels sont les restaurants disponibles ?</div>
-        <div className="collapse-content text-sm">Nous travaillons avec 4 restaurants partenaires : Subway, Libanais, Sushi et Traditionnel.</div>
-      </div>
+
       <div className="collapse collapse-arrow bg-base-100 border border-[#F3F3F3] shadow-[0px_2px_4px_1px_rgba(0,0,0,0.25)]">
         <input type="radio" name="my-accordion-2" />
         <div className="collapse-title font-semibold text-[14px] md:text-[16px]">Dans quelle zone livrez-vous ?</div>
