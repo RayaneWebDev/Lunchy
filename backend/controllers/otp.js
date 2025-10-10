@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
+const { Resend } = require('resend');
 require('dotenv').config();
 const User = require('../models/userModel');
-const sendEmail = require('../utils/sendEmail'); 
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendOtpController = async (req, res) => {
   const { email } = req.body;
@@ -50,12 +52,24 @@ const sendOtpController = async (req, res) => {
       </html>
     `;
 
-    // ✅ Envoi de l’email via ta fonction utilitaire Resend
-    await sendEmail(
-      email,
-      'Réinitialisation du mot de passe',
-      htmlContent
-    );
+    // ✅ Envoi du mail directement avec Resend
+    const { data, error } = await resend.emails.send({
+      from: 'Lunchy <onboarding@resend.dev>',
+      to: email,
+      subject: 'Réinitialisation du mot de passe',
+      html: htmlContent,
+    });
+
+    if (error) {
+      console.error('❌ Erreur envoi email via Resend :', error);
+      return res.status(500).json({
+        success: false,
+        error: true,
+        message: "Erreur lors de l'envoi du mail",
+      });
+    }
+
+    console.log('✅ Email envoyé via Resend :', data);
 
     res.status(200).json({
       success: true,
@@ -65,7 +79,7 @@ const sendOtpController = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Erreur lors de l’envoi de l’OTP :', error);
+    console.error('❌ Erreur serveur :', error);
     res.status(500).json({
       success: false,
       error: true,
