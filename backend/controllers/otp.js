@@ -1,9 +1,7 @@
 const jwt = require('jsonwebtoken');
-const { Resend } = require('resend');
 require('dotenv').config();
 const User = require('../models/userModel');
-const resend = new Resend(process.env.RESEND_API_KEY);
-
+const sendEmail = require('../utils/sendEmail'); 
 
 const sendOtpController = async (req, res) => {
   const { email } = req.body;
@@ -36,50 +34,43 @@ const sendOtpController = async (req, res) => {
       { expiresIn }
     );
 
-    const logoPath = `https://res.cloudinary.com/dnlgpkskm/image/upload/v1743774691/logo_ualmf3.jpg`;
-
+    const logoUrl = `https://res.cloudinary.com/dnlgpkskm/image/upload/v1743774691/logo_ualmf3.jpg`;
 
     const htmlContent = `
       <html>
-        <body>
+        <body style="font-family: Arial, sans-serif;">
           <h2>Bonjour,</h2>
           <p>Votre code OTP est :</p>
-          <h3 style="color: blue;">${otpCode}</h3>
+          <h3 style="color: #007bff; font-size: 24px;">${otpCode}</h3>
           <p>Ce code expirera dans <strong>10 minutes</strong>.</p>
           <p>Si vous n'êtes pas à l'origine de cette demande, veuillez ignorer ce mail.</p>
-          <p><img src="cid:logoLunchy" alt="Logo Lunchy" width="200"/></p>
+          <br/>
+          <img src="${logoUrl}" alt="Logo Lunchy" width="150" />
         </body>
       </html>
     `;
 
-    const mailOptions = {
-      from: 'Lunchy <onboarding@resend.dev>' ,
-      to: email,
-      subject: 'Réinitialisation du mot de passe',
-      html: htmlContent,
-      attachments: [
-        {
-          filename: 'logo.png',
-          path: logoPath,
-          cid: 'logoLunchy',
-        },
-      ],
-    };
+    // ✅ Envoi de l’email via ta fonction utilitaire Resend
+    await sendEmail(
+      email,
+      'Réinitialisation du mot de passe',
+      htmlContent
+    );
 
-    const { data, error } = await resend.emails.send(emailData);
-
-    if (error) throw error;
-    console.log("✅ Email de bienvenue envoyé via Resend :", data);
-    res
-      .status(200)
-      .json({ success: true, error: false, message: 'Code envoyé', otpToken });
-    return data;
-    // Envoi du mail (en tâche de fond pour ne pas bloquer la réponse)
-    
+    res.status(200).json({
+      success: true,
+      error: false,
+      message: 'Code OTP envoyé avec succès',
+      otpToken,
+    });
 
   } catch (error) {
-    console.error(error);
-    res.status(400).json({ success: false, error: true, message: 'Erreur serveur' });
+    console.error('Erreur lors de l’envoi de l’OTP :', error);
+    res.status(500).json({
+      success: false,
+      error: true,
+      message: 'Erreur serveur. Impossible d’envoyer le code OTP.',
+    });
   }
 };
 
@@ -104,7 +95,11 @@ const verifyOtpController = (req, res) => {
         message: 'Code expiré. Demandez-en un nouveau.',
       });
     }
-    res.status(400).json({ success: false, error: true, message: 'Erreur serveur' });
+    res.status(400).json({
+      success: false,
+      error: true,
+      message: 'Erreur serveur ou code invalide',
+    });
   }
 };
 
