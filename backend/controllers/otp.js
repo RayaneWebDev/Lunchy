@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 require('dotenv').config();
 const User = require('../models/userModel');
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 const sendOtpController = async (req, res) => {
   const { email } = req.body;
@@ -36,14 +38,6 @@ const sendOtpController = async (req, res) => {
 
     const logoPath = `https://res.cloudinary.com/dnlgpkskm/image/upload/v1743774691/logo_ualmf3.jpg`;
 
-    // ✅ Transporteur SMTP classique (sans OAuth2)
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER, // Ton adresse Gmail
-        pass: process.env.EMAIL_PASS, // Mot de passe d’application (⚠️ pas ton vrai mot de passe Gmail)
-      },
-    });
 
     const htmlContent = `
       <html>
@@ -59,7 +53,7 @@ const sendOtpController = async (req, res) => {
     `;
 
     const mailOptions = {
-      from: `"Lunchy" <${process.env.EMAIL_USER}>`,
+      from: 'Lunchy <onboarding@resend.dev>' ,
       to: email,
       subject: 'Réinitialisation du mot de passe',
       html: htmlContent,
@@ -72,12 +66,17 @@ const sendOtpController = async (req, res) => {
       ],
     };
 
-    // Envoi du mail (en tâche de fond pour ne pas bloquer la réponse)
+    const { data, error } = await resend.emails.send(emailData);
+
+    if (error) throw error;
+    console.log("✅ Email de bienvenue envoyé via Resend :", data);
     res
       .status(200)
       .json({ success: true, error: false, message: 'Code envoyé', otpToken });
+    return data;
+    // Envoi du mail (en tâche de fond pour ne pas bloquer la réponse)
+    
 
-    setImmediate(() => transporter.sendMail(mailOptions));
   } catch (error) {
     console.error(error);
     res.status(400).json({ success: false, error: true, message: 'Erreur serveur' });
