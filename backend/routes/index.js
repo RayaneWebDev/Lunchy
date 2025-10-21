@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const axios = require('axios');
 
 const userSignUpController = require('../controllers/userSignUp')
 const userSignInController = require('../controllers/userSignIn')
@@ -227,6 +228,19 @@ router.get("/produits-par-categorie/:restaurantId", async (req, res) => {
     res.status(500).json({ success: false, error : true, message: "Erreur serveur" });
   }
 });
+
+
+
+const BACKEND_URL = "https://lunchy-backend.onrender.com";
+
+async function keepAlive(){
+  try{
+    await axios.get(BACKEND_URL);
+    console.log("Ping reussi !");
+  } catch(err){
+    console.error("Erreur lors du ping : ",err.message);
+  }
+}
 
 
 

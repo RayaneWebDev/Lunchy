@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const axios = require('axios');
 require('dotenv').config()
 const connectDB = require('./config/db')
 const router = require('./routes/index')
@@ -170,11 +171,25 @@ app.use(cors({
 
 // cookies
 app.use(cookieParser())  // avant les routes
-
 app.use((req, res, next) => {
     console.log(`Request received: ${req.method} ${req.originalUrl}`);
     next();
   });
+
+
+  const BACKEND_URL = "https://lunchy-backend.onrender.com";
+
+async function keepAlive(){
+  try{
+    await axios.get(BACKEND_URL);
+    console.log("Ping reussi !");
+  } catch(err){
+    console.error("Erreur lors du ping : ",err.message);
+  }
+}
+
+keepAlive();
+setInterval(keepAlive, 10*60*1000);
 
 // routes
 app.use('/api',router)

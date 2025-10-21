@@ -205,7 +205,7 @@ const createOrderFromWebhook = async ({ userId,items, deliveryFee , dateLivraiso
   await newOrder.save();
 
   // 7. Envoyer la confirmation de commande (par email ou autre notification)
-  // sendOrderConfirmation({ order: newOrder, user });
+  sendOrderConfirmation({ order: newOrder, user });
 
   return newOrder;
 };
