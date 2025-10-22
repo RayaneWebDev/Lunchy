@@ -65,11 +65,12 @@ const MonCompte = () => {
 
   const handleConfirm = async () => {
     if (!valuesToSubmit) return;
+    const token = localStorage.getItem("token")
 
     try {
       const response = await fetch(SummaryApi.updateProfile.url, {
         method: SummaryApi.updateProfile.method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' , "Authorization": `Bearer ${token}`},
         body: JSON.stringify(valuesToSubmit),
         credentials: "include",
       });

@@ -27,39 +27,40 @@ const Login = ({ setShowLogout, setShowLogin, fetchUserDetails, setShowSendEmail
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={ async(values, { setSubmitting }) => {
-          try{
-            const dataResponse = await fetch(SummaryApi.signIN.url, {
-              method: SummaryApi.signIN.method,
-              headers: { "Content-type": "application/json" },
-              body: JSON.stringify(values),
-              credentials : "include"
-            });
-        
-            const dataApi = await dataResponse.json();
-        
-            if (dataApi.success) {
-              toast.success(dataApi.message);
-              console.log("data-api:",dataApi)
-              setShowLogin(false); // Fermer le pop-up après la connexion réussie
-              setShowLogout(true);
-              fetchUserDetails();
-              //fetchUserAddToCart()
-            }
-        
-            if (dataApi.error) {
-              toast.error(dataApi.message);
-            }
-            
-          } catch(err){
-            toast.error("Erreur de connexion")
-            console.log(err)
-          }
-          finally{
-            setSubmitting(false);
-          }
-          
-        }}
+      onSubmit={ async(values, { setSubmitting }) => {
+  try{
+    const dataResponse = await fetch(SummaryApi.signIN.url, {
+      method: SummaryApi.signIN.method,
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(values),
+      credentials: "include" // garde pour les navigateurs normaux
+    });
+
+    const dataApi = await dataResponse.json();
+
+    if (dataApi.success) {
+      toast.success(dataApi.message);
+
+      // **Stocker le token pour Safari**
+      localStorage.setItem("token", dataApi.data);
+
+      setShowLogin(false);
+      setShowLogout(true);
+      fetchUserDetails(); // à modifier plus tard pour utiliser le token si besoin
+    }
+
+    if (dataApi.error) {
+      toast.error(dataApi.message);
+    }
+
+  } catch(err){
+    toast.error("Erreur de connexion")
+    console.log(err)
+  } finally{
+    setSubmitting(false);
+  }
+}}
+
       >
         {({ errors, touched, isSubmitting }) => (
           <Form className="login-popup-container w-[330px] bg-white flex flex-col gap-[25px] px-6 py-[25px] md:px-[30px] rounded-[8px] text-[14px]">

@@ -24,10 +24,12 @@ const App = () => {
 
   const fetchUserDetails = async () => {
     try {
+      const token = localStorage.getItem("token");
       const dataResponse = await fetch(SummaryApi.current_user.url, {
         method: SummaryApi.current_user.method,
         headers: {
         'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`
       },
         credentials: "include"
       });
