@@ -2,10 +2,8 @@ const userModel = require('../models/userModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-
 async function userSignInController(req,res) {
-  
-  const isIOS = /iPad|iPhone|iPod/.test(req.headers['user-agent']);
+
     try{
         const {email , password} = req.body
 
@@ -50,13 +48,12 @@ async function userSignInController(req,res) {
         };
 
 
-            res.cookie("token",token).status(200).json({
-                 httpOnly: true,
-                 secure: true,
-                 sameSite: isIOS ? 'Lax' : 'None', // ← ici la clé
-                 maxAge: 216000000, // 60 heures par exemple
-                 path: '/'
-                   })
+            res.cookie("token",token,tokenOptions).status(200).json({
+                message : "Connexion avec succès",
+                data : token,
+                success : true,
+                error : false
+            })
         }
 
         else {
