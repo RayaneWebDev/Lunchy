@@ -39,27 +39,21 @@ async function userSignInController(req,res) {
                 tokenData,
                 process.env.TOKEN_SECRET_KEY , { expiresIn : 60 *60 *60*60 }
             )
-        const tokenOptions = {
-          httpOnly: true,
-          secure: true, // Render utilise HTTPS
-          sameSite: 'none', // obligatoire pour iOS
-          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
+
+           const tokenOptions = {
+            httpOnly: true,  
+            secure: process.env.NODE_ENV === 'production',  // HTTPS uniquement en prod
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',  // ❌ important
+            maxAge: 60*60*60*1000  // 1 heure par ex.
         };
-        
-        res
-          .cookie("token", token, tokenOptions)
-          .status(200)
-          .json({
-            message: "Connexion avec succès",
-            success: true,
-            error: false,
-            user: {
-              _id: user._id,
-              email: user.email,
-              role: user.role
-            }
-          });
-        
+
+
+            res.cookie("token",token,tokenOptions).status(200).json({
+                message : "Connexion avec succès",
+                data : token,
+                success : true,
+                error : false
+            })
         }
 
         else {
