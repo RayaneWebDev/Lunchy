@@ -37,16 +37,10 @@ const getOrderStatistics = require('../controllers/OrdersStatusStat')
 
 const rateLimit = require('express-rate-limit');
 
-const loginLimiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 5, // Max 5 tentatives
-  message: { success: false, error: true, message: 'Trop de tentatives, veuillez réessayer plus tard.' },
-  standardHeaders: true,
-  legacyHeaders: false,
-});
+
 
 router.post("/signup",userSignUpController)
-router.post("/signin",loginLimiter,userSignInController)
+router.post("/signin",userSignInController)
 router.get("/user-details",authToken,userDetailsController)
 router.post("/update-profile",authToken,updateProfileController)
 router.get("/userLogout",userLogout)
@@ -228,20 +222,6 @@ router.get("/produits-par-categorie/:restaurantId", async (req, res) => {
     res.status(500).json({ success: false, error : true, message: "Erreur serveur" });
   }
 });
-
-
-
-const BACKEND_URL = "https://lunchy-backend.onrender.com";
-
-async function keepAlive(){
-  try{
-    await axios.get(BACKEND_URL);
-    console.log("Ping reussi !");
-  } catch(err){
-    console.error("Erreur lors du ping : ",err.message);
-  }
-}
-
 
 
 // router.post("/create-checkout-session",authToken, async (req, res) => {
