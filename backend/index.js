@@ -20,8 +20,13 @@ const Order = require("./models/order");
 const helmet = require('helmet');
 
 dotenv.config();
-app.use(helmet());
 
+app.use(cors({
+    origin : process.env.FRONTEND_URL,
+    credentials : true
+}))
+
+app.use(helmet());
 
 app.use(
   session({
@@ -164,10 +169,7 @@ app.post(
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json())
-app.use(cors({
-    origin : process.env.FRONTEND_URL,
-    credentials : true
-}))
+
 
 // cookies
 app.use(cookieParser())  // avant les routes
