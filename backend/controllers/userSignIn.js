@@ -43,7 +43,7 @@ async function userSignInController(req,res) {
            const tokenOptions = {
             httpOnly: true,  
             secure: process.env.NODE_ENV === 'production',  // HTTPS uniquement en prod
-            sameSite: 'Lax',  // ❌ important
+            sameSite: 'none',  // ❌ important
             maxAge: 60*60*60*1000  // 1 heure par ex.
         };
 

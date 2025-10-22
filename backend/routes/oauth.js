@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
         const tokenOption = {
             httpOnly: true,       // cookie inaccessible côté JS
             secure: process.env.NODE_ENV === "production", // true uniquement en prod HTTPS
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // nécessaire pour cross-origin
+            sameSite: "none", // nécessaire pour cross-origin
             maxAge: 24 * 60 * 60 * 1000, // 24h
         };
 
