@@ -22,15 +22,15 @@ const helmet = require('helmet');
 dotenv.config();
 
 app.use(cors({
-  origin: [
-    "https://lunchy-paris.onrender.com",
-    "http://localhost:5173"
-  ],
+  origin: ["https://lunchy-paris.onrender.com"], // ton frontend
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-
 app.use(helmet());
+app.set('trust proxy', 1);
+app.options("*", cors());
 
 
 app.use(

@@ -48,12 +48,13 @@ async function userSignInController(req,res) {
         };
 
 
-            res.cookie("token",token,tokenOptions).status(200).json({
-                message : "Connexion avec succès",
-                data : token,
-                success : true,
-                error : false
-            })
+            res.cookie("token", token, {
+            httpOnly: true,
+            secure: true, 
+            sameSite: "none", 
+            maxAge: 3 * 24 * 60 * 60 * 1000, // 3 jours par ex
+          });
+
         }
 
         else {
