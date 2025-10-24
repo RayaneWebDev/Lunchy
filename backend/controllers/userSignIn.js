@@ -50,12 +50,17 @@ async function userSignInController(req, res) {
 
     res.cookie('token', token, tokenOptions);
 
-    return res.status(200).json({
-      success: true,
-      error: false,
-      message: 'Connexion réussie',
-      data: { token, role: user.role, email: user.email }
-    });
+   return res.status(200).json({
+    message: "Connexion réussie",
+    success: true,
+    error: false,
+    token,
+    user: {
+      _id: user._id,
+      email: user.email,
+      role: user.role,
+      name: user.name
+    }})
 
   } catch (err) {
     console.error("Erreur dans userSignInController :", err);
