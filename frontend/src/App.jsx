@@ -24,36 +24,26 @@ const App = () => {
 
   const fetchUserDetails = async () => {
   try {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.warn("Aucun token trouvé, utilisateur non connecté");
-      dispatch(setUserDetails(null));
-      return;
-    }
+    const token = localStorage.getItem("token");
+    if (!token) return;
 
-    const dataResponse = await fetch(SummaryApi.current_user.url, {
-      method: SummaryApi.current_user.method,
+    const { data } = await axios.get(SummaryApi.current_user.url, {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // ✅ ENVOI DU TOKEN
+        Authorization: `Bearer ${token}`,
       },
     });
 
-    const dataApi = await dataResponse.json();
-
-    if (dataApi.success) {
-      dispatch(setUserDetails(dataApi.data));
+    if (data.success) {
+      dispatch(setUserDetails(data.data));
     } else {
       dispatch(setUserDetails(null));
-      console.warn("Échec de récupération de l'utilisateur :", dataApi.message);
     }
-
-    console.log("data-user : ", dataApi);
-  } catch (error) {
-    console.error("Erreur lors de la récupération de l'utilisateur :", error);
+  } catch (err) {
+    console.error("Erreur récupération user :", err);
     dispatch(setUserDetails(null));
   }
 };
+
 
   
   const fetchRestaurants = async () => {

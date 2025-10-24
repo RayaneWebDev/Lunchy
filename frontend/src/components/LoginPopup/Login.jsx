@@ -24,27 +24,35 @@ const Login = ({ setShowLogout, setShowLogin, fetchUserDetails, setShowSendEmail
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting }) => {
           try {
-            const { data } = await axios.post(SummaryApi.signIN.url, values);
+            // ✅ Envoi correct de la requête
+            const response = await axios.post(SummaryApi.signIN.url, values, {
+              headers: { 'Content-Type': 'application/json' },
+            });
+
+            const data = response.data;
 
             if (data.success) {
               toast.success(data.message);
 
-              // 🧠 Sauvegarde du token et de l’utilisateur dans localStorage
+              // ✅ Sauvegarde du token et utilisateur dans localStorage
               localStorage.setItem("token", data.token);
               localStorage.setItem("user", JSON.stringify(data.user));
 
-              // Mettre à jour le contexte UI
-              setShowLogin(false);
-              setShowLogout(true);
+              // ✅ Force axios à utiliser le token pour les requêtes suivantes
+              axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+
+              // ✅ Mettre à jour le contexte utilisateur
               fetchUserDetails();
 
-              // Redirection
+              setShowLogin(false);
+              setShowLogout(true);
+
               navigate("/");
             } else {
               toast.error(data.message);
             }
           } catch (err) {
-            console.error(err);
+            console.error("Erreur connexion :", err);
             toast.error("Erreur de connexion");
           } finally {
             setSubmitting(false);
